@@ -8,6 +8,9 @@ metadata:
     helm.sh/chart: {{ include "gremlin.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
+    {{ -if .Values.kubernetesLabels }}
+{{ toYaml .Values.kubernetesLabels | trimSuffix "\n" | indent 2 }}
+    {{ -end }}
     version: v1
 spec:
   selector:
@@ -21,6 +24,9 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
         app.kubernetes.io/managed-by: {{ .Release.Service }}
         version: v1
+        {{ -if .Values.kubernetesLabels }}
+{{ toYaml .Values.kubernetesLabels | trimSuffix "\n" | indent 4 }}
+        {{ -end }}
       {{- if or .Values.gremlin.apparmor .Values.gremlin.podSecurity.seccomp.enabled }}
       annotations:
         {{- if .Values.gremlin.apparmor }}

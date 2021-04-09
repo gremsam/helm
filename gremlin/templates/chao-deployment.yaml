@@ -6,6 +6,9 @@ metadata:
     app.kubernetes.io/instance: chao
     app.kubernetes.io/name: chao
     app.kubernetes.io/version: "1"
+    {{ -if .Values.kubernetesLabels }}
+{{ toYaml .Values.kubernetesLabels | trimSuffix "\n" | indent 2 }}
+    {{ -end }}
   name: chao
   namespace: {{ .Release.Namespace }}
 spec:
@@ -21,6 +24,9 @@ spec:
         app.kubernetes.io/instance: chao
         app.kubernetes.io/name: chao
         app.kubernetes.io/version: "1"
+        {{ -if .Values.kubernetesLabels }}
+{{ toYaml .Values.kubernetesLabels | trimSuffix "\n" | indent 4 }}
+        {{ -end }}
     spec:
       serviceAccountName: chao
       containers:

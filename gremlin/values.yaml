@@ -19,6 +19,8 @@ nodeSelector: {}
 
 tolerations: []
 
+kubernetesLabels: {}
+
 affinity: {}
 
 gremlin:
